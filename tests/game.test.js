@@ -1,10 +1,6 @@
 import {Game, player, getCoords} from '../src/Game.js';
 import {typeOf, zeros} from 'mathjs';
 
-// const gameBoard = document.getElementById('game-board');
-const game = new Game();
-const playerTest = player();
-
 describe('Generating player ships and coords', () => {
     test('getCoords array size', () => {
         const c1 = getCoords(2, []);
@@ -30,13 +26,24 @@ describe('Generating player ships and coords', () => {
 
 describe('player function', () => {
     // player contains all ships
-    test('ship population and sizes', () => {
+    test('ship population', () => {
+        const playerTest = player();
         expect(   playerTest.carrier
                && playerTest.battleship
                && playerTest.crusier
                && playerTest.submarine
                && playerTest.destroyer  )
-                .toBe(true);
+                .toBeTruthy();
+    });
+
+    test('ships coordinates are arrays', () => {
+        const playerTest = player();
+        expect(   Array.isArray(playerTest.carrier.coords)
+               && Array.isArray(playerTest.battleship.coords)
+               && Array.isArray(playerTest.crusier.coords)
+               && Array.isArray(playerTest.submarine.coords)
+               && Array.isArray(playerTest.destroyer.coords) )
+               .toBe(true);
     });
 });
 
