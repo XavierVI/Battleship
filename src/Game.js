@@ -1,4 +1,4 @@
-import {zeros} from 'mathjs';
+import {e, zeros} from 'mathjs';
 
 class Game{
     constructor(){
@@ -6,8 +6,30 @@ class Game{
     }
 }
 
+/* 
+    Carrier: 5
+    Battleship: 4
+    Crusier: 3
+    Submarine: 3
+    Destroyer: 2
+*/
 function player(){
+    const player = {
+        carrier: {size: 5, coords: null},
+        battleship: {size: 4, coords: null},
+        crusier: {size: 3, coords: null},
+        submarine: {size: 3, coords: null},
+        destroyer: {size: 2, coords: null},
+    }
+    let takenCoords = [];
 
+    Object.values(player).forEach(value => {
+        // console.log(value);
+        const coords = getCoords(value.size, takenCoords);
+        takenCoords = [...takenCoords, ...coords];
+        value.coords = coords;
+    });
+    return player;
 }
 
 // handles establishing the starting point of a ship
