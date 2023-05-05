@@ -2,6 +2,39 @@ import {e, zeros} from 'mathjs';
 
 class Game{
     constructor(){
+        this.gameBoard = document.getElementById('game-board');
+        this.playerShips = getShipCoords();
+        this.aiShips = getShipCoords();
+        this.playerGrid = this.createGrid(this.playerShips, 'player');
+        this.aiGrid = this.createGrid(this.aiShips, 'ai');
+    }
+    // creates a grid for the players ships
+    createGrid(playerShips, playerId){
+        for(let i = 0; i < 10; i++){
+            for(let j = 0; j < 10; j++){
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                const button = document.createElement('button');
+                // Id allows identification of coordinate that was hit and which player
+                button.id = `${i},${j},${playerId}`;
+
+                if(contains(playerShips, [i, j])) button.addEventListener('click', this.shipHitListener);
+                else button.addEventListener('click', this.blankSpotListener);
+            }
+        }
+    }
+
+    shipHitListener(e){
+        const id = e.target.id;
+        const x = parseInt(id.split()[0]);
+        const y = parseInt(id.split()[1]);
+        const index = 10*x + y;
+ 
+        if(id === 'player') this.playerShips.splice(index, 1);
+        else this.aiShips.splice(index, 1);
+    }
+
+    blankSpotListener(e){
         
     }
 }
@@ -13,23 +46,31 @@ class Game{
     Submarine: 3
     Destroyer: 2
 */
-function player(){
-    const player = {
-        carrier: {size: 5, coords: null},
-        battleship: {size: 4, coords: null},
-        crusier: {size: 3, coords: null},
-        submarine: {size: 3, coords: null},
-        destroyer: {size: 2, coords: null},
-    }
+function getShipCoords(){
+    let shipCoords = [];
     let takenCoords = [];
 
-    Object.values(player).forEach(value => {
-        // console.log(value);
-        const coords = getCoords(value.size, takenCoords);
-        takenCoords = [...takenCoords, ...coords];
-        value.coords = coords;
-    });
-    return player;
+    for(let i = 5; i > 1; i--){
+        if(i === 3){
+            const coords1 = getCoords(i, takenCoords);
+            coords1.map(coord => {
+                takenCoords.push(coord);
+                shipCoords.push(coord);
+            });
+            const coords2 = getCoords(i, takenCoords);
+            coords2.map(coord => {
+                takenCoords.push(coord);
+                shipCoords.push(coord);
+            });
+            continue;
+        }
+        const coords = getCoords(i, takenCoords);
+        coords.map(coord => {
+            takenCoords.push(coord);
+            shipCoords.push(coord);
+        });
+    }
+    return shipCoords;
 }
 
 // handles establishing the starting point of a ship
@@ -87,4 +128,4 @@ function contains(arr, coord){
     return false;
 }
 
-export {Game, player, getCoords}
+export {Game, getShipCoords, getCoords}

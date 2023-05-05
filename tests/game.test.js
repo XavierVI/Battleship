@@ -1,4 +1,4 @@
-import {Game, player, getCoords} from '../src/Game.js';
+import {Game, getShipCoords, getCoords} from '../src/Game.js';
 import {typeOf, zeros} from 'mathjs';
 
 describe('Generating player ships and coords', () => {
@@ -15,7 +15,7 @@ describe('Generating player ships and coords', () => {
              .toBe(true);
     });
 
-    test('getCoords returning available coordinates', () => {
+    test('getCoords returns available coordinates', () => {
         const arr = [[1, 4], [6, 6], [7, 8], [1, 1], [4, 8]];
         const size = 4;
         const coords = getCoords(size, arr);
@@ -24,38 +24,30 @@ describe('Generating player ships and coords', () => {
     });
 });
 
-describe('player function', () => {
+describe('getShipCoords function', () => {
     // player contains all ships
     test('ship population', () => {
-        const playerTest = player();
-        expect(   playerTest.carrier
-               && playerTest.battleship
-               && playerTest.crusier
-               && playerTest.submarine
-               && playerTest.destroyer  )
-                .toBeTruthy();
+        const playerTest = getShipCoords();
+        expect(playerTest).toBeTruthy();
     });
 
-    test('ships coordinates are arrays', () => {
-        const playerTest = player();
-        expect(   Array.isArray(playerTest.carrier.coords)
-               && Array.isArray(playerTest.battleship.coords)
-               && Array.isArray(playerTest.crusier.coords)
-               && Array.isArray(playerTest.submarine.coords)
-               && Array.isArray(playerTest.destroyer.coords) )
-               .toBe(true);
+    test('ships coordinates are an array with length 17', () => {
+        const playerTest = getShipCoords();
+        console.log(playerTest);
+        expect(Array.isArray(playerTest) && playerTest.length === 17).toBe(true);
     });
 });
 
+describe('GameBoard tests', () => {
+    // test('Game board is in page', () => {
+    //     // only test if children are added to DOM
+    //     expect(gameBoard.childNodes).toBeDefined();
+    // });
 
-describe('DOM element tests', () => {
-    test('Game board is in page', () => {
-        // only test if children are added to DOM
-        expect(gameBoard.childNodes).toBeDefined();
-    });
-
-    test('Action listeners test', () => {
-        addShipListener(playerTest);
-        expect(gameBoard.childNodes)
-    });
+    // test buttons for having the correct action listener
+    // test('Action listeners test', () => {
+    //     const game = new Game();
+    //     const ships = game.playerShips
+    //     const children = game.gameBoard.childNodes;
+    // });
 });
