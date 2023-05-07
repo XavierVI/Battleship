@@ -1,7 +1,6 @@
 import { contains } from "./lib/coordinates";
-const board = document.getElementById('game-board');
 
-function createGrid(shipCoords, playerName, listener){
+function createGrid(shipCoords, playerName, onHitListener, noHitListener){
     // creates a grid and appends it to the board
     // meant to be called more than once
     // checks if a button is in the same location as a ship coord
@@ -15,16 +14,17 @@ function createGrid(shipCoords, playerName, listener){
             button.id = `${i}${j}`;
             button.className = playerName;
             if(contains(shipCoords, [i, j])){
-                button.addEventListener('click', listener);
+                button.addEventListener('click', onHitListener);
             }
             else{
-                button.addEventListener('click', noHit);
+                button.addEventListener('click', noHitListener);
             }
             cell.appendChild(button);
             row.appendChild(cell);
         }
         grid.appendChild(row);
     }
+    return grid;
 }
 
 function removeGrid(){
@@ -35,12 +35,12 @@ function removeGrid(){
     });
 }
 
-function onHit(location){
+function onHit(grid, location){
     // listener for when a ship was struck
     // changes how cell looks
 }
 
-function noHit(location){
+function noHit(grid, location){
     // listener for when a ship was not struck
     // changes how cell looks
 }

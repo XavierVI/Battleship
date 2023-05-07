@@ -9,10 +9,12 @@ export default class Game{
         this.aiLife = 17;
     }
 
-    shipHitListener(playerName){
-        // reduces the ship of the player that was hit
-        if(playerName === 'player') this.playerLife--;
-        else this.aiLife--;
+    decreasePlayerLife(){
+        this.playerLife--;
+    }
+
+    decreaseAiLife(){
+        this.aiLife--;
     }
 
     gameCheck(){
