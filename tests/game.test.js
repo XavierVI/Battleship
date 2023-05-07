@@ -1,5 +1,5 @@
-import {Game, getShipCoords, getCoords} from '../src/Game.js';
-import {typeOf, zeros} from 'mathjs';
+import Game from '../src/Game.js';
+import { getShipCoords, getCoords } from '../src/lib/coordinates.js';
 
 describe('Generating player ships and coords', () => {
     test('getCoords array size', () => {
@@ -36,18 +36,4 @@ describe('getShipCoords function', () => {
         console.log(playerTest);
         expect(Array.isArray(playerTest) && playerTest.length === 17).toBe(true);
     });
-});
-
-describe('GameBoard tests', () => {
-    // test('Game board is in page', () => {
-    //     // only test if children are added to DOM
-    //     expect(gameBoard.childNodes).toBeDefined();
-    // });
-
-    // test buttons for having the correct action listener
-    // test('Action listeners test', () => {
-    //     const game = new Game();
-    //     const ships = game.playerShips
-    //     const children = game.gameBoard.childNodes;
-    // });
 });
