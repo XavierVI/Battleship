@@ -1,10 +1,14 @@
 import Game from './Game';
-import { createGrid, removeGrid, onHit, noHit } from './GameBoard';
+import { createGrid, createScore, removeGrid, onHit, noHit, modifyScore, modifyTurn } from './GameBoard';
+import './styles/main.css';
 
-// have access to variables and methods
-const game = new Game();
+
 const board = document.getElementById('game-board');
+const playerScore = document.getElementById('player-score');
+const aiScore = document.getElementById('ai-score');
+const turn = document.getElementById('turn-info');
 // not const because they will change between games
+const game = new Game();
 let playerGrid;
 let aiGrid;
 
@@ -15,6 +19,10 @@ function runGame() {
     board.appendChild(playerGrid);
     aiGrid = createGrid(game.aiShips, 'ai', onHitListener, noHitListener);
     board.appendChild(aiGrid);
+    createScore(playerScore, 'Your');
+    createScore(aiScore, 'AI');
+    modifyTurn(turn, 'Your');
+    
 }
 
 function onHitListener(e) {
@@ -27,10 +35,14 @@ function onHitListener(e) {
     if (playerHit === 'player') {
         game.decreasePlayerLife();
         onHit(playerGrid, position);
+        modifyScore(playerScore, 'player');
+        modifyTurn(turn, 'AI');
     }
     else {
         game.decreaseAiLife();
         onHit(aiGrid, position);
+        modifyScore(aiScore, 'AI');
+        modifyTurn(turn, 'Your');
     }
 }
 
@@ -41,10 +53,12 @@ function noHitListener(e) {
     const position = [x, y];
     if (playerHit === 'player') {
         noHit(playerGrid, position);
+        modifyTurn(turn, 'AI');
     }
     else {
         game.decreaseAiLife();
         noHit(aiGrid, position);
+        modifyTurn(turn, 'Your');
     }
 }
 

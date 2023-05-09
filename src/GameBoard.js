@@ -27,6 +27,10 @@ function createGrid(shipCoords, playerName, onHitListener, noHitListener){
     return grid;
 }
 
+function createScore(board, playerName){
+    board.textContent = `${playerName} health: 17`;
+}
+
 function removeGrid(){
     // removes all grids from the board
     const children = board.childNodes;
@@ -45,6 +49,15 @@ function noHit(grid, location){
     // changes how cell looks
 }
 
+function modifyScore(board, playerName){
+    let health = parseInt(board.textContent.slice(-2));
+    health = health - 1;
+    board.textContent = `${playerName} health ${health}`;
+}
 
+function modifyTurn(element, playerName){
+    element.textContent = (playerName === 'Your') ? `${playerName} turn`
+                                                    : `${playerName}'s turn`;
+}
 
-export { createGrid, removeGrid, onHit, noHit }
+export { createGrid, createScore, removeGrid, onHit, noHit, modifyScore, modifyTurn }

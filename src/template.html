@@ -7,8 +7,16 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
-    <header></header>
+    <header>
+        <h1>Battleship</h1>
+    </header>
     <main>
+        <div id="game-info">
+            <h4 id="player-score"></h4>
+            <h4 id="turn-info"></h4>
+            <h4 id="ai-score"></h4>
+            <h4 id="winner-info"></h4>
+        </div>
         <div id="game-board"></div>
     </main>
     <footer></footer>
