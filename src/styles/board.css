@@ -1,0 +1,37 @@
+#game-board{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#game-board td{
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ccc;
+}
+
+#game-board td button {
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    border: none;
+    cursor: pointer;
+    padding: 0%;
+    align-self: center;
+    vertical-align: middle;
+}
+
+#game-board td button:hover {
+    background-color: #ddd;
+}
+#game-board td button:active {
+    background-color: #ccc; /* set the button background color to darker when pressed */
+}
+#game-board td button:focus:not(:active) {
+    transition: background-color 0.3s ease-out; /* add a transition to the button background color */
+}
+#game-board td button:not(:focus) {
+    transition: background-color 0.3s ease-out; /* add a transition to the button background color */
+}
+#game-board td button:focus {
+outline: none;
+}

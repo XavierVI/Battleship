@@ -31,6 +31,10 @@ function createScore(board, playerName){
     board.textContent = `${playerName} health: 17`;
 }
 
+function displayWinMessage(playerName){
+    // creates a message in front of page notifying who has won
+}
+
 function removeGrid(){
     // removes all grids from the board
     const children = board.childNodes;
@@ -39,14 +43,18 @@ function removeGrid(){
     });
 }
 
-function onHit(grid, location){
+function onHit(cell, location){
     // listener for when a ship was struck
     // changes how cell looks
+    cell.removeChild(cell.childNodes[0]);
+    cell.style.backgroundColor = 'red';
 }
 
-function noHit(grid, location){
+function noHit(cell, location){
     // listener for when a ship was not struck
     // changes how cell looks
+    cell.removeChild(cell.childNodes[0]);
+    cell.style.backgroundColor = '#636261';
 }
 
 function modifyScore(board, playerName){

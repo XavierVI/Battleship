@@ -18,45 +18,11 @@ header{
 
 #game-info{
     display: flex;
-    justify-content: space-around;
-}
-
-#game-board{
-    display: flex;
     justify-content: space-evenly;
-}
-
-#game-board td{
-    width: 40px;
-    height: 40px;
-    border: 1px solid #ccc;
-    padding: 0;
     text-align: center;
 }
 
-#game-board td button {
-    width: 100%;
-    height: 100%;
-    background-color: #eee;
-    border: none;
-    cursor: pointer;
-}
 
-#game-board td button:hover {
-    background-color: #ddd;
-}
-#game-board td button:active {
-    background-color: #ccc; /* set the button background color to darker when pressed */
-}
-#game-board td button:focus:not(:active) {
-    transition: background-color 0.3s ease-out; /* add a transition to the button background color */
-}
-#game-board td button:not(:focus) {
-    transition: background-color 0.3s ease-out; /* add a transition to the button background color */
-}
-#game-board td button:focus {
-outline: none;
-}
 
 @media (max-width: 890px) {
     #game-board{
