@@ -79,6 +79,29 @@ function getCoords(shipSize, takenCoords){
     return shipCoord;
 }
 
+/**
+ * A function which returns a coordinate; if takenCoords is not null,
+ * returns a coordinate that is not inside of it.
+ * @param {Array} takenCoords An array of coordinates already taken
+ * @returns A coordinate
+ */
+function getCoord(takenCoords){
+    let coord = [];
+    do{
+        // generate new coordinate until while loop condition fails
+        const x = Math.floor(Math.random()*10);
+        const y = Math.floor(Math.random()*10);
+        coord = [x, y];
+    } while(contains(takenCoords, coord))
+    return coord;
+}
+
+/**
+ * Tests if an array of coordinates contains a specific coordinate
+ * @param {Array} arr The array of coordinates to search
+ * @param {Array} coord The target coordinate
+ * @returns True if arr contains coord, false otherwise
+ */
 function contains(arr, coord){
     if(arr.length === 0) return false;
     for(let i = 0; i < arr.length; i++){
@@ -88,4 +111,4 @@ function contains(arr, coord){
     return false;
 }
 
-export { contains, getShipCoords, getCoords }
+export { contains, getShipCoords, getCoords, getCoord }

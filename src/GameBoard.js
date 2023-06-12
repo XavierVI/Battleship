@@ -1,6 +1,10 @@
 import { contains } from "./lib/coordinates";
 
-function createGrid(shipCoords, playerName, onHitListener, noHitListener){
+class GameBoard{
+    
+}
+
+function createAiGrid(shipCoords, playerName, onHitListener, noHitListener){
     // creates a grid and appends it to the board
     // meant to be called more than once
     // checks if a button is in the same location as a ship coord
@@ -13,6 +17,31 @@ function createGrid(shipCoords, playerName, onHitListener, noHitListener){
             // create an id which contains the name of the player
             button.id = `${i}${j}`;
             button.className = playerName;
+            if(contains(shipCoords, [i, j])){
+                button.addEventListener('click', onHitListener);
+            }
+            else{
+                button.addEventListener('click', noHitListener);
+            }
+            cell.appendChild(button);
+            row.appendChild(cell);
+        }
+        grid.appendChild(row);
+    }
+    return grid;
+}
+
+function createPlayerGrid(shipCoords, playerName, onHitListener, noHitListener){
+    const grid = document.createElement('table');
+    for(let i = 0; i < 10; i++){
+        const row = document.createElement('tr');
+        for(let j = 0; j < 10; j++){
+            const cell = document.createElement('td');
+            const button = document.createElement('button');
+            // create an id which contains the name of the player
+            button.id = `${i}${j}`;
+            button.className = playerName;
+            button.disabled = true;
             if(contains(shipCoords, [i, j])){
                 button.addEventListener('click', onHitListener);
             }
@@ -68,4 +97,4 @@ function modifyTurn(element, playerName){
                                                     : `${playerName}'s turn`;
 }
 
-export { createGrid, createScore, removeGrid, onHit, noHit, modifyScore, modifyTurn }
+export { createAiGrid, createPlayerGrid, createScore, removeGrid, onHit, noHit, modifyScore, modifyTurn }

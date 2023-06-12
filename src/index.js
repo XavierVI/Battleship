@@ -1,5 +1,6 @@
 import Game from './Game';
-import { createGrid, createScore, removeGrid, onHit, noHit, modifyScore, modifyTurn } from './GameBoard';
+
+import { createAiGrid, createPlayerGrid, createScore, removeGrid, onHit, noHit, modifyScore, modifyTurn } from './GameBoard';
 import './styles/main.css';
 import './styles/board.css';
 
@@ -7,7 +8,7 @@ import './styles/board.css';
 const board = document.getElementById('game-board');
 const playerScore = document.getElementById('player-score');
 const aiScore = document.getElementById('ai-score');
-const turn = document.getElementById('info');
+const mssg = document.getElementById('info');
 // not const because they will change between games
 let playerGrid;
 let aiGrid;
@@ -16,15 +17,18 @@ const game = new Game();
 
 
 function runGame() {
-    console.log(game);
-    // runs game
-    playerGrid = createGrid(game.playerShips, 'player', onHitListener, noHitListener);
+    // creates player and ai grids
+    playerGrid = createPlayerGrid(game.playerShips, 'player', onHitListener, noHitListener);
     board.appendChild(playerGrid);
-    aiGrid = createGrid(game.aiShips, 'ai', onHitListener, noHitListener);
+    aiGrid = createAiGrid(game.aiShips, 'ai', onHitListener, noHitListener);
     board.appendChild(aiGrid);
+    // creates score board
     createScore(playerScore, 'Your');
     createScore(aiScore, 'AI');
-    modifyTurn(turn, 'Your');
+    // switches turn to player
+    modifyTurn(mssg, 'Your');
+    // starts game
+    Game.runGame();
 }
 
 function onHitListener(e) {
@@ -43,14 +47,14 @@ function onHitListener(e) {
         else{
             onHit(cell, position);
             modifyScore(playerScore, 'player');
-            modifyTurn(turn, 'AI');
+            modifyTurn(mssg, 'AI');
         }
     }
     else {
         game.decreaseAiLife();
         onHit(cell, position);
         modifyScore(aiScore, 'AI');
-        modifyTurn(turn, 'Your');
+        modifyTurn(mssg, 'Your');
     }
 }
 
@@ -62,12 +66,12 @@ function noHitListener(e) {
     const position = [x, y];
     if (playerHit === 'player') {
         noHit(cell, position);
-        modifyTurn(turn, 'AI');
+        modifyTurn(mssg, 'player');
     }
     else {
         game.decreaseAiLife();
         noHit(cell, position);
-        modifyTurn(turn, 'Your');
+        modifyTurn(mssg, 'AI');
     }
 }
 
