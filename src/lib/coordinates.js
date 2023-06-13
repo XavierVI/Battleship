@@ -37,7 +37,7 @@ function getShipCoords(){
 // // returns coordinate as an array [x, y]
 function getCoords(shipSize, takenCoords){
 //     // 50% chance of horizontal and vertical orientation
-    const horizontal = Math.floor(Math.random*2);
+    const horizontal = Math.floor(Math.random()*2);
     let shipCoord = [];
     let startingCoord;
 
